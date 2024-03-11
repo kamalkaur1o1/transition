@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transition Toolkit</title>
+<style>
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+</head>
+<body>
+<h1>Transition Toolkit</h1>
+
+<!-- Visual Schedule -->
+<h2>Visual Schedule</h2>
+<canvas id="visualSchedule" width="400" height="200"></canvas>
+
+<!-- Countdown Timer -->
+<h2>Countdown Timer</h2>
+<canvas id="countdownTimer" width="200" height="100"></canvas>
+
+<!-- Transition Cards -->
+<h2>Transition Cards</h2>
+<canvas id="transitionCards" width="300" height="100"></canvas>
+
+<!-- Sensory Supports -->
+<h2>Sensory Supports</h2>
+<canvas id="sensorySupports" width="200" height="200"></canvas>
+<label for="colorSlider">Slide to Choose Color That Refreshes Your Senses ->:</label>
+<input type="range" id="colorSlider" min="0" max="360" value="0">
+
+<script>
+  // Visual Schedule
+  const visualScheduleCanvas = document.getElementById('visualSchedule');
+  const visualScheduleContext = visualScheduleCanvas.getContext('2d');
+  visualScheduleContext.font = '16px Arial';
+  visualScheduleContext.fillText('Morning Work', 10, 30);
+  visualScheduleContext.fillText('Math Class', 10, 60);
+  visualScheduleContext.fillText('Lunch', 10, 90);
+  visualScheduleContext.fillText('Reading Time', 10, 120);
+
+  // Countdown Timer
+  const countdownTimerCanvas = document.getElementById('countdownTimer');
+  const countdownTimerContext = countdownTimerCanvas.getContext('2d');
+  let countdownSeconds = 300; // 5 minutes
+  setInterval(() => {
+    countdownTimerContext.clearRect(0, 0, countdownTimerCanvas.width, countdownTimerCanvas.height);
+    countdownTimerContext.fillText(`Time Left: ${countdownSeconds} seconds`, 10, 30);
+    countdownSeconds--;
+  }, 1000);
+
+  // Transition Cards
+  const transitionCardsCanvas = document.getElementById('transitionCards');
+  const transitionCardsContext = transitionCardsCanvas.getContext('2d');
+  transitionCardsContext.font = '16px Arial';
+  transitionCardsContext.fillText('Transition in 5 minutes', 10, 30);
+
+  // Sensory Supports
+  const sensorySupportsCanvas = document.getElementById('sensorySupports');
+  const sensorySupportsContext = sensorySupportsCanvas.getContext('2d');
+  const colorSlider = document.getElementById('colorSlider');
+  
+  function drawArc(color) {
+    sensorySupportsContext.clearRect(0, 0, sensorySupportsCanvas.width, sensorySupportsCanvas.height);
+    sensorySupportsContext.beginPath();
+    sensorySupportsContext.arc(100, 100, 50, 0, 2 * Math.PI);
+    sensorySupportsContext.fillStyle = `hsl(${color}, 100%, 50%)`;
+    sensorySupportsContext.fill();
+  }
+
+  drawArc(colorSlider.value);
+
+  colorSlider.addEventListener('input', function() {
+    drawArc(this.value);
+  });
+</script>
+</body>
+</html>
